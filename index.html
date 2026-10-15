@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UsedMart - Buy & Sell Used Products</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+    <!-- ================= LOGIN PAGE ================= -->
+
+    <div id="loginPage" class="start-page">
+
+        <div class="start-box">
+
+            <div class="start-logo">
+                Used<span>Mart</span>
+            </div>
+
+            <h1>Buy & Sell Used Products</h1>
+
+            <p>Find quality products at affordable prices</p>
+
+
+            <form onsubmit="loginUser(event)">
+
+                <label>Email</label>
+
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+
+                <label>Password</label>
+
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+
+                <button type="submit" class="main-btn">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="account-text">
+
+                Don't have an account?
+
+                <button onclick="showRegister()">
+                    Register
+                </button>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= REGISTER PAGE ================= -->
+
+    <div id="registerPage" class="start-page" style="display:none;">
+
+        <div class="start-box">
+
+            <div class="start-logo">
+                Used<span>Mart</span>
+            </div>
+
+            <h1>Create Account</h1>
+
+            <p>Join UsedMart and start buying and selling</p>
+
+
+            <form onsubmit="registerUser(event)">
+
+                <label>Full Name</label>
+
+                <input type="text" id="registerName" placeholder="Enter your name" required>
+
+
+                <label>Email</label>
+
+                <input type="email" id="registerEmail" placeholder="Enter your email" required>
+
+
+                <label>Password</label>
+
+                <input type="password" id="registerPassword" placeholder="Create password" required>
+
+
+                <label>Confirm Password</label>
+
+                <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+
+
+                <button type="submit" class="main-btn">
+                    Register
+                </button>
+
+            </form>
+
+
+            <p class="account-text">
+
+                Already have an account?
+
+                <button onclick="showLogin()">
+                    Login
+                </button>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= MAIN APP ================= -->
+
+    <div id="app" style="display:none;">
+
+
+        <!-- ================= NAVBAR ================= -->
+
+        <header class="navbar">
+
+            <div class="logo">
+                Used<span>Mart</span>
+            </div>
+
+
+            <nav>
+
+                <button onclick="showPage('homePage')">
+                    Home
+                </button>
+
+                <button onclick="showPage('productsPage')">
+                    Products
+                </button>
+
+                <button onclick="showPage('categoriesPage')">
+                    Categories
+                </button>
+
+                <button onclick="showPage('sellPage')">
+                    Sell Product
+                </button>
+
+                <button onclick="showPage('ordersPage')">
+                    My Orders
+                </button>
+
+            </nav>
+
+
+            <div class="nav-buttons">
+
+                <button onclick="showPage('cartPage')">
+                    🛒 Cart
+                    <span id="cartCount">0</span>
+                </button>
+
+                <button onclick="showPage('wishlistPage')">
+                    ♡ Wishlist
+                </button>
+
+                <button onclick="logoutUser()" class="logout-btn">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main>
+
+
+            <!-- ================= HOME PAGE ================= -->
+
+            <section id="homePage" class="page">
+
+                <div class="hero">
+
+                    <div class="hero-content">
+
+                        <h1>
+                            Buy & Sell Used Products Easily
+                        </h1>
+
+
+                        <p>
+                            Find quality used products at affordable prices
+                            or sell your unused products easily.
+                        </p>
+
+
+                        <div class="search-box">
+
+                            <input type="text" id="searchInput" placeholder="Search products...">
+
+                            <button onclick="searchProducts()">
+                                Search
+                            </button>
+
+                        </div>
+
+
+                        <button class="hero-btn" onclick="showPage('productsPage')">
+                            Explore Products
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= PRODUCTS PAGE ================= -->
+
+            <section id="productsPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        Latest Products
+                    </h2>
+
+                    <p>
+                        Find products posted by sellers
+                    </p>
+
+                </div>
+
+
+                <div class="filter-container">
+
+
+                    <select id="categoryFilter" onchange="filterProducts()">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="Mobiles">
+                            Mobiles
+                        </option>
+
+                        <option value="Laptops">
+                            Laptops
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                        <option value="Furniture">
+                            Furniture
+                        </option>
+
+                        <option value="Bikes">
+                            Bikes
+                        </option>
+
+                        <option value="Books">
+                            Books
+                        </option>
+
+                    </select>
+
+
+
+                    <select id="priceFilter" onchange="filterProducts()">
+
+                        <option value="all">
+                            All Prices
+                        </option>
+
+                        <option value="10000">
+                            Below ₹10,000
+                        </option>
+
+                        <option value="30000">
+                            Below ₹30,000
+                        </option>
+
+                        <option value="50000">
+                            Below ₹50,000
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="productContainer" class="product-container"></div>
+
+            </section>
+
+
+
+            <!-- ================= CATEGORIES PAGE ================= -->
+
+            <section id="categoriesPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        Browse Categories
+                    </h2>
+
+                    <p>
+                        Choose a category to find products
+                    </p>
+
+                </div>
+
+
+                <div class="category-container">
+
+
+                    <div class="category-card" onclick="selectCategory('Mobiles')">
+
+                        <div>📱</div>
+
+                        <h3>
+                            Mobiles
+                        </h3>
+
+                        <p>
+                            Used smartphones
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="category-card" onclick="selectCategory('Laptops')">
+
+                        <div>💻</div>
+
+                        <h3>
+                            Laptops
+                        </h3>
+
+                        <p>
+                            Used laptops
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="category-card" onclick="selectCategory('Electronics')">
+
+                        <div>🎧</div>
+
+                        <h3>
+                            Electronics
+                        </h3>
+
+                        <p>
+                            Electronic products
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="category-card" onclick="selectCategory('Furniture')">
+
+                        <div>🪑</div>
+
+                        <h3>
+                            Furniture
+                        </h3>
+
+                        <p>
+                            Used furniture
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="category-card" onclick="selectCategory('Bikes')">
+
+                        <div>🏍️</div>
+
+                        <h3>
+                            Bikes
+                        </h3>
+
+                        <p>
+                            Used bikes
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="category-card" onclick="selectCategory('Books')">
+
+                        <div>📚</div>
+
+                        <h3>
+                            Books
+                        </h3>
+
+                        <p>
+                            Used books
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= SELL PRODUCT PAGE ================= -->
+
+            <section id="sellPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        Sell Your Product
+                    </h2>
+
+                    <p>
+                        Post your used product and find buyers
+                    </p>
+
+                </div>
+
+
+                <div class="form-box">
+
+
+                    <form onsubmit="addProduct(event)">
+
+
+                        <label>
+                            Product Name
+                        </label>
+
+                        <input type="text" id="productName" placeholder="Enter product name" required>
+
+
+
+                        <label>
+                            Product Image
+                        </label>
+
+                        <input type="file" id="productImage" accept="image/*" required>
+
+
+
+                        <label>
+                            Category
+                        </label>
+
+                        <select id="productCategory" required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Mobiles">
+                                Mobiles
+                            </option>
+
+                            <option value="Laptops">
+                                Laptops
+                            </option>
+
+                            <option value="Electronics">
+                                Electronics
+                            </option>
+
+                            <option value="Furniture">
+                                Furniture
+                            </option>
+
+                            <option value="Bikes">
+                                Bikes
+                            </option>
+
+                            <option value="Books">
+                                Books
+                            </option>
+
+                        </select>
+
+
+
+                        <label>
+                            Price
+                        </label>
+
+                        <input type="number" id="productPrice" placeholder="Enter price" required>
+
+
+
+                        <label>
+                            Condition
+                        </label>
+
+                        <select id="productCondition" required>
+
+                            <option value="">
+                                Select Condition
+                            </option>
+
+                            <option value="Like New">
+                                Like New
+                            </option>
+
+                            <option value="Good Condition">
+                                Good Condition
+                            </option>
+
+                            <option value="Used">
+                                Used
+                            </option>
+
+                        </select>
+
+
+
+                        <label>
+                            Location
+                        </label>
+
+                        <input type="text" id="productLocation" placeholder="Enter location" required>
+
+
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea id="productDescription" rows="4" placeholder="Enter product description"
+                            required></textarea>
+
+
+
+                        <label>
+                            Seller Name
+                        </label>
+
+                        <input type="text" id="sellerName" placeholder="Enter seller name" required>
+
+
+
+                        <!-- PHONE NUMBER VALIDATION -->
+
+                        <label>
+                            Seller Phone
+                        </label>
+
+                        <input type="tel" id="sellerPhone" placeholder="Enter 10 digit phone number" pattern="[0-9]{10}"
+                            minlength="10" maxlength="10" inputmode="numeric" required>
+
+
+                        <button type="submit" class="main-btn">
+                            Post Product
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= PRODUCT DETAILS ================= -->
+
+            <section id="productDetailsPage" class="page" style="display:none;">
+
+                <div class="details-box">
+
+
+                    <div class="details-image">
+
+                        <img id="detailsImage" src="" alt="Product">
+
+                    </div>
+
+
+
+                    <div class="details-info">
+
+
+                        <h2 id="detailsName"></h2>
+
+                        <h3 id="detailsPrice"></h3>
+
+                        <p id="detailsCondition"></p>
+
+                        <p id="detailsLocation"></p>
+
+
+                        <h4>
+                            Description
+                        </h4>
+
+                        <p id="detailsDescription"></p>
+
+
+                        <h4>
+                            Seller Details
+                        </h4>
+
+                        <p id="detailsSeller"></p>
+
+                        <p id="detailsPhone"></p>
+
+
+                        <div class="details-buttons">
+
+
+                            <button onclick="addDetailsToCart()">
+                                🛒 Add to Cart
+                            </button>
+
+
+                            <button onclick="buyNow()">
+                                Buy Now
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= CART PAGE ================= -->
+
+            <section id="cartPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        My Cart
+                    </h2>
+
+                    <p>
+                        Products added to your cart
+                    </p>
+
+                </div>
+
+
+                <div id="cartContainer"></div>
+
+
+                <div class="cart-summary">
+
+                    <h3>
+                        Total:
+                        <span id="cartTotal">
+                            ₹0
+                        </span>
+                    </h3>
+
+
+                    <button onclick="goToCheckout()" class="main-btn">
+                        Proceed to Checkout
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= CHECKOUT PAGE ================= -->
+
+            <section id="checkoutPage" class="page" style="display:none;">
+
+                <div class="form-box">
+
+
+                    <h2>
+                        Checkout
+                    </h2>
+
+
+                    <form onsubmit="placeOrder(event)">
+
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input type="text" id="customerName" required>
+
+
+
+                        <!-- CUSTOMER PHONE VALIDATION -->
+
+                        <label>
+                            Phone Number
+                        </label>
+
+                        <input type="tel" id="customerPhone" placeholder="Enter 10 digit phone number"
+                            pattern="[0-9]{10}" minlength="10" maxlength="10" inputmode="numeric" required>
+
+
+
+                        <label>
+                            Address
+                        </label>
+
+                        <textarea id="customerAddress" rows="4" required></textarea>
+
+
+
+                        <label>
+                            City
+                        </label>
+
+                        <input type="text" id="customerCity" required>
+
+
+
+                        <label>
+                            Pincode
+                        </label>
+
+                        <input type="number" id="customerPincode" required>
+
+
+
+                        <div class="order-total">
+
+                            <span>
+                                Order Total
+                            </span>
+
+                            <strong id="checkoutTotal">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+
+                        <button type="submit" class="main-btn">
+                            Place Order
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= ORDER CONFIRMED ================= -->
+
+            <section id="orderConfirmedPage" class="page" style="display:none;">
+
+                <div class="confirmation-box">
+
+
+                    <div class="success-icon">
+                        ✓
+                    </div>
+
+
+                    <h2>
+                        Order Confirmed!
+                    </h2>
+
+
+                    <p>
+                        Your order has been placed successfully.
+                    </p>
+
+
+                    <div class="order-details">
+
+
+                        <p>
+
+                            Order ID:
+
+                            <strong id="orderId"></strong>
+
+                        </p>
+
+
+                        <p>
+
+                            Total:
+
+                            <strong id="confirmedTotal"></strong>
+
+                        </p>
+
+
+                        <p>
+
+                            Status:
+
+                            <strong>
+                                Order Confirmed
+                            </strong>
+
+                        </p>
+
+
+                    </div>
+
+
+                    <button onclick="showPage('productsPage')" class="main-btn">
+                        Continue Shopping
+                    </button>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= ORDERS PAGE ================= -->
+
+            <section id="ordersPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        My Orders
+                    </h2>
+
+                    <p>
+                        View your previous orders
+                    </p>
+
+                </div>
+
+
+                <div id="ordersContainer"></div>
+
+            </section>
+
+
+
+            <!-- ================= WISHLIST PAGE ================= -->
+
+            <section id="wishlistPage" class="page" style="display:none;">
+
+                <div class="page-title">
+
+                    <h2>
+                        My Wishlist
+                    </h2>
+
+                    <p>
+                        Products you have saved
+                    </p>
+
+                </div>
+
+
+                <div id="wishlistContainer"></div>
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <div class="footer-logo">
+                Used<span>Mart</span>
+            </div>
+
+
+            <p>
+                Buy smart. Sell easy. Reuse more.
+            </p>
+
+
+            <p class="copyright">
+                © 2026 UsedMart. All Rights Reserved.
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
